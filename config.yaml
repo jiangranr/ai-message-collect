@@ -1,0 +1,268 @@
+# AI Daily Pulse 配置文件
+
+# 运行时间
+schedule:
+  time: "08:30"           # 每天 8:30 运行
+  timezone: "Asia/Shanghai"
+
+# 推送配置
+publisher:
+  enabled: true
+  type: "wechat"          # wechat: 企业微信群机器人
+  webhook_url: ""         # 企业微信Webhook URL
+
+# 数据源配置
+sources:
+  # 通用AI资讯
+  twitter:
+    enabled: true
+    accounts:
+      - "OpenAI"
+      - "AnthropicAI"
+      - "karpathy"
+      - "ylecun"
+      - "AndrewYNg"
+      - "huggingface"
+      - "NVIDIAAI"
+      - "DeepMind"
+      - "GoogleAI"
+      - "MetaAI"
+    fetch_retweets: false
+    fetch_replies: false
+    max_tweets_per_account: 20
+
+  # 技术博客提取
+  blog_extraction:
+    enabled: true
+    max_items: 10
+    exclude_domains:
+      - "twitter.com"
+      - "youtube.com"
+      - "linkedin.com"
+      - "t.co"
+      - "instagram.com"
+    min_like_count: 10
+
+  reddit:
+    enabled: true
+    subreddits:
+      - "ArtificialIntelligence"
+      - "LocalLLaMA"
+      - "MachineLearning"
+      - "OpenAI"
+      - "generative_ai"
+    limit: 15
+
+  hacker_news:
+    enabled: true
+    limit: 20
+
+  # AI技术新闻
+  ai_news_sources:
+    enabled: true
+    sources:
+      - name: "TechCrunch AI"
+        url: "https://techcrunch.com/category/artificial-intelligence/"
+        type: "web"
+      - name: "The Verge AI"
+        url: "https://www.theverge.com/ai"
+        type: "web"
+      - name: "Wired AI"
+        url: "https://www.wired.com/tag/artificial-intelligence/"
+        type: "web"
+      - name: "MIT Tech Review AI"
+        url: "https://www.technologyreview.com/feed/topic/artificial-intelligence/"
+        type: "rss"
+
+  techcrunch:
+    enabled: true
+    category: "ai"
+
+  # AI公司官方博客
+  company_blogs:
+    enabled: true
+    blogs:
+      - name: "OpenAI"
+        url: "https://openai.com/blog"
+        rss: "https://openai.com/blog/rss.xml"
+      - name: "Anthropic"
+        url: "https://www.anthropic.com"
+        rss: "https://www.anthropic.com/rss"
+      - name: "Google AI"
+        url: "https://blog.google/technology/ai/"
+        rss: "https://blog.google/technology/ai/rss/"
+      - name: "Meta AI"
+        url: "https://ai.meta.com/research/"
+      - name: "DeepMind"
+        url: "https://deepmind.google/research/publications/"
+        type: "web"
+      - name: "Mistral AI"
+        url: "https://mistral.ai/news/"
+        type: "web"
+      - name: "Stability AI"
+        url: "https://stability.ai/blog"
+        type: "web"
+
+  # 中文AI资讯
+  chinese_media:
+    enabled: true
+    sources:
+      - name: "虎嗅"
+        url: "https://www.huxiu.com"
+        type: "rss"
+      - name: "机器之心"
+        url: "https://www.jiqizhixin.com"
+        type: "rss"
+      - name: "量子位"
+        url: "https://www.qbitai.com"
+        type: "rss"
+
+  # 金融AI资讯（重点）
+  financial_ai:
+    enabled: true
+    sources:
+      # 中文金融AI源
+      - name: "雷锋网"
+        url: "https://www.leiphone.com/category/finance"
+        type: "web"
+        priority: "highest"
+      - name: "36氪金融"
+        url: "https://36kr.com/information/finance/"
+        type: "web"
+        priority: "high"
+      # 英文金融科技源
+      - name: "Fintech News"
+        url: "https://fintechnews.com/feed/"
+        type: "rss"
+        priority: "high"
+      - name: "Bank Innovation"
+        url: "https://bankinnovation.net/feed/"
+        type: "rss"
+        priority: "medium"
+        priority: "high"
+
+  # 国内银行AI动态
+  bank_news:
+    enabled: true
+    banks:
+      - name: "工商银行"
+        url: "https://www.icbc.com.cn"
+      - name: "建设银行"
+        url: "https://www.ccb.com"
+      - name: "招商银行"
+        url: "https://www.cmbchina.com"
+      - name: "中国银行"
+        url: "https://www.boc.cn"
+
+# 过滤配置
+filter:
+  keywords_include:
+    # AI通用
+    - "LLM"
+    - "GPT"
+    - "Claude"
+    - "Gemini"
+    - "OpenAI"
+    - "Anthropic"
+    - "model"
+    - "transformer"
+    - "diffusion"
+    # 金融相关
+    - "金融"
+    - "银行"
+    - "风控"
+    - "合规"
+    - "KYC"
+    - "AML"
+    - "交易"
+    - "支付"
+    - "信贷"
+    - "理财"
+    # 技术方向
+    - "RAG"
+    - "fine-tuning"
+    - "prompt"
+    - "agent"
+    - "OCR"
+    - "NLP"
+
+  keywords_exclude:
+    - "crypto"
+    - "NFT"
+    - "Web3"
+    - "加密货币"
+    - "区块链"
+
+  min_title_length: 8
+
+# 分类配置
+categories:
+  ai_news:
+    - name: "产品发布"
+      keywords: ["release", "announce", "launch", "发布", "新品", "new", "introducing"]
+    - name: "技术研究"
+      keywords: ["paper", "research", "arxiv", "论文", "study", "framework"]
+    - name: "融资动态"
+      keywords: ["funding", "Series", "round", "融资", "投资", "估值", "invest"]
+    - name: "开源项目"
+      keywords: ["open source", "github", "开源", "library", "repository"]
+
+  financial_ai:
+    - name: "智能风控"
+      keywords: ["风控", "反欺诈", "风险预警", "risk control", "fraud"]
+    - name: "智能客服"
+      keywords: ["客服", "智能外呼", "语音客服", "customer service", "chatbot"]
+    - name: "智能审单"
+      keywords: ["审单", "合同", "票据", "invoice", "contract"]
+    - name: "智能合规"
+      keywords: ["合规", "KYC", "AML", "反洗钱", "compliance"]
+    - name: "智能运营"
+      keywords: ["运营", "RPA", "流程", "automation", "流程优化"]
+    - name: "智能营销"
+      keywords: ["营销", "推荐", "画像", "marketing", "recommendation"]
+
+# LLM业务建议生成配置
+generator:
+  enabled: true
+  model: "gpt-3.5-turbo"
+  max_ideas: 5
+  temperature: 0.7
+  system_prompt: |
+    你是一位深耕金融行业的AI业务顾问，专门为银行后台业务人员提供AI赋能建议。
+
+    背景：
+    - 用户岗位：资金同业交易后台
+    - 系统类型：静态数据维护系统
+    - 业务领域：资金业务、KYC/AML、风险管理、运营自动化
+
+    要求：
+    1. 建议必须与银行后台业务直接相关
+    2. 考虑静态数据维护系统的特点
+    3. 优先考虑低实施难度、高收益的建议
+    4. 建议要具体可执行，不能是空泛的概念
+
+  user_prompt_template: |
+    根据以下今日AI资讯和金融AI应用案例，生成{{max_ideas}}条可落地的业务赋能建议。
+
+    今日AI资讯摘要：
+    {{ai_news}}
+
+    金融AI应用案例：
+    {{financial_news}}
+
+    每个建议包含：
+    - 建议标题（简洁有力，不超过20字）
+    - 建议描述（为什么有用、如何落地，50字以内）
+    - 实施难度（低/中/高）
+    - 预期收益（量化描述）
+
+# 数据库配置
+database:
+  path: "data/pulse.db"
+
+# 日志配置
+logging:
+  level: "INFO"
+  file: "logs/app.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
